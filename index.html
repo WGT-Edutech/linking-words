@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0a0e1a">
+<title>Linking Words B1 — Eloquenta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--cs-accent:#22d3ee;--cs-bg:#0a0e1a;--cs-text:#e0f2fe;--cs-card:#111827;--cs-border:#1e3a5f;--cs-text-muted:#94a3b8;--cs-accent-glow:rgba(34,211,238,.2);--cs-accent-dim:rgba(34,211,238,.08);--cs-border-light:rgba(30,58,95,.7)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:18px}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cs-bg);color:var(--cs-text);line-height:1.6;min-height:100vh;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif}
+.bg{position:fixed;inset:0;z-index:-1;background:var(--cs-bg);background-size:cover;background-position:center;transition:background-image 1.2s ease;overflow:hidden}
+.bg::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(255,255,255,.012) 3px,rgba(255,255,255,.012) 6px),radial-gradient(ellipse at 30% 30%,rgba(34,211,238,.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 70%,rgba(34,211,238,.06) 0%,transparent 50%);opacity:.8}
+.glow{text-shadow:0 0 12px var(--cs-accent-glow),0 0 30px var(--cs-accent-dim)}
+.glow-on-hover{transition:transform .2s,box-shadow .2s}
+.glow-on-hover:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,0,0,.3),0 0 20px var(--cs-accent-glow)}
+.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(14px);box-shadow:0 4px 24px rgba(0,0,0,.2)}
+.nav{position:sticky;top:0;z-index:50;background:rgba(10,14,26,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--cs-border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Space Grotesk';font-size:1.2rem;font-weight:700;color:#fff;text-decoration:none;letter-spacing:1px}
+.nav-logo span{color:var(--cs-accent)}
+.theme-cycle-btn{width:36px;height:36px;border-radius:50%;border:1px solid var(--cs-border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.theme-dot{width:12px;height:12px;border-radius:50%;background:var(--cs-accent);transition:background .3s}
+#app{max-width:1100px;margin:0 auto;padding:24px 16px 120px}
+.loading{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--cs-bg);color:var(--cs-accent);font-family:'Space Grotesk';font-size:1rem;letter-spacing:2px}
+.loading.hidden{display:none}
+.slide-nav{position:fixed;bottom:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;background:rgba(10,14,26,.92);backdrop-filter:blur(12px);border-top:1px solid var(--cs-border);z-index:50}
+.slide-nav button{font-family:'Space Grotesk';font-size:.85rem;font-weight:700;padding:12px 24px;border-radius:10px;border:1px solid var(--cs-border);background:var(--cs-card);color:var(--cs-text);cursor:pointer;transition:all .15s}
+.slide-nav button:hover{border-color:var(--cs-accent);color:var(--cs-accent)}
+.slide-nav button:disabled{opacity:.4;cursor:default}
+.slide-counter{font-family:'Space Grotesk';font-size:.85rem;color:var(--cs-text-muted)}
+.progress-bar{position:fixed;top:56px;left:0;right:0;height:3px;background:rgba(255,255,255,.05);z-index:40}
+.progress-fill{height:100%;width:0;background:var(--cs-accent);transition:width .4s;box-shadow:0 0 12px var(--cs-accent-glow)}
+.slide{display:none}.slide.active{display:block}
+.cover{position:relative;border-radius:16px;overflow:hidden;margin-bottom:32px}
+.cover img{width:100%;display:block;height:340px;object-fit:cover}
+.cover-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,.85) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px}
+.cover-overlay h1{font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:8px}
+.cover-overlay p{color:rgba(255,255,255,.75);font-size:1.05rem;max-width:500px;margin-bottom:24px}
+.btn{font-family:'Space Grotesk';font-size:.95rem;font-weight:700;padding:14px 32px;border-radius:12px;border:1px solid var(--cs-accent);background:transparent;color:var(--cs-accent);cursor:pointer;transition:all .15s}
+.btn:hover{background:var(--cs-accent);color:var(--cs-bg)}
+.btn-primary{background:var(--cs-accent);color:var(--cs-bg)}
+.btn-primary:hover{filter:brightness(1.15)}
+.card-img{position:relative;border-radius:14px;overflow:hidden;margin-bottom:24px;background:var(--cs-card);border:1px solid var(--cs-border);box-shadow:0 4px 24px rgba(0,0,0,.15)}
+.card-img:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,0,0,.25),0 0 20px var(--cs-accent-glow)}
+.card-img-img{width:100%;height:220px;object-fit:cover;display:block}
+.card-img-body{padding:20px}
+.card-img-body h2{font-size:1.3rem;color:var(--cs-accent);margin-bottom:8px}
+.card-img-body p{color:var(--cs-text-muted);font-size:.9rem;line-height:1.6}
+.card-text{padding:24px;margin-bottom:20px;background:var(--cs-card);border:1px solid var(--cs-border);border-radius:14px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.card-text.glass{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(14px);box-shadow:0 4px 24px rgba(0,0,0,.2)}
+.card-text h2{font-size:1.3rem;color:var(--cs-accent);margin-bottom:12px}
+.badges{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.badge{display:inline-block;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:5px 12px;border-radius:8px}
+.badge-accent{background:var(--cs-accent-glow);color:var(--cs-accent);border:1px solid rgba(34,211,238,.3)}
+.badge-amber{background:rgba(251,191,36,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.3)}
+.badge-green{background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3)}
+.badge-orange{background:rgba(251,146,60,.15);color:#fb923c;border:1px solid rgba(251,146,60,.3)}
+.badge-blue{background:rgba(96,165,250,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.3)}
+.badge-violet{background:rgba(192,132,252,.15);color:#c084fc;border:1px solid rgba(192,132,252,.3)}
+.question{font-size:1rem;font-weight:600;padding:16px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid var(--cs-border);margin:14px 0}
+.reveal-btn{font-family:'Space Grotesk';font-size:.8rem;font-weight:700;padding:10px 20px;border-radius:8px;border:1px solid var(--cs-accent);background:transparent;color:var(--cs-accent);cursor:pointer;transition:all .15s;margin-top:10px}
+.reveal-btn:hover{background:var(--cs-accent);color:var(--cs-bg)}
+.answer{display:none;margin-top:12px;padding:16px;border-left:3px solid var(--cs-accent);background:rgba(34,211,238,.06);border-radius:0 12px 12px 0;font-size:.9rem;line-height:1.6;color:var(--cs-text-muted)}
+.answer.open{display:block}
+.grammar{padding:18px;margin:16px 0;border-radius:12px;background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2)}
+.grammar h4{color:#fbbf24;font-size:.85rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.grammar p{font-size:.9rem;color:var(--cs-text-muted);line-height:1.6}
+.example{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.92rem;line-height:1.6}
+.example:last-child{border-bottom:none}
+.example strong{font-weight:700}
+.tip{border-bottom:1px dotted var(--cs-accent);cursor:help;position:relative}
+.tip:hover{color:var(--cs-accent)}
+@media(max-width:700px){.cover-overlay h1{font-size:2rem}.cover img{height:240px}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+<div class="loading" id="loading">Loading B1 deck…</div>
+<nav class="nav">
+  <a href="https://eloquenta-english.github.io/VocabForge/" class="nav-logo">&#9670; <span>Eloquenta</span> Linking Words</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span style="font-size:.75rem;color:var(--cs-text-muted);font-family:'Space Grotesk'">B1</span>
+    <button class="theme-cycle-btn" id="themeCycleBtn" title="Change theme"><span class="theme-dot" id="themeDot"></span></button>
+  </div>
+</nav>
+<div id="app"></div>
+<div class="slide-nav">
+  <button id="prevBtn">&#9664; Prev</button>
+  <span class="slide-counter" id="counter">1 / 10</span>
+  <button id="nextBtn">Next &#9654;</button>
+</div>
+<script>
+var S={
+  data:[
+    {type:"cover",img:"https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&w=1280",title:"Adding & Sequencing",desc:"Master the words that make your English flow naturally.",badge:"B1 Linking Words"},
+    {type:"card",img:"https://images.pexels.com/photos/5676744/pexels-photo-5676744.jpeg?auto=compress&w=800",title:"What Are Linking Words?",body:"Linking words are the glue between your ideas. Without them, your speech sounds like a list of separate sentences. With them, you sound fluent and organised.<br><br>Examiners listen for these in the <strong>Coherence &amp; Cohesion</strong> marking criterion."},
+    {type:"card",img:"https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&w=800",title:"Addition: and, also, too",body:"Use these to add information:<br><br><span class=\"c-green\">and</span> &mdash; I studied hard <span class=\"c-green\">and</span> passed the exam.<br><br><span class=\"c-green\">also</span> &mdash; I like reading. I <span class=\"c-green\">also</span> enjoy writing.",badge:"Addition"},
+    {type:"card",img:"https://images.pexels.com/photos/3760067/pexels-photo-3760067.jpeg?auto=compress&w=800",title:"Contrast: but, however",body:"Use these to show contrast:<br><br><span class=\"c-orange\">but</span> &mdash; I wanted to go, <span class=\"c-orange\">but</span> it was raining.<br><br><span class=\"c-orange\">however</span> &mdash; It was expensive. <span class=\"c-orange\">However</span>, I still bought it.",badge:"Contrast"},
+    {type:"card",img:"https://images.pexels.com/photos/196656/pexels-photo-196656.jpeg?auto=compress&w=800",title:"Cause & Effect: because, so",body:"Use these to show reasons and results:<br><br><span class=\"c-red\">because</span> &mdash; I was tired <span class=\"c-red\">so</span> I went to bed early.<br><br><span class=\"c-red\">so</span> &mdash; It was raining, <span class=\"c-red\">so</span> I took an umbrella.",badge:"Cause/Effect"},
+    {type:"card",img:"https://images.pexels.com/photos/1645951/pexels-photo-1645951.jpeg?auto=compress&w=800",title:"Sequence: first, then, finally",body:"Use these to order your ideas:<br><br><span class=\"c-blue\">first</span> &mdash; <span class=\"c-blue\">First</span> we had dinner.<br><br><span class=\"c-blue\">then</span> &mdash; <span class=\"c-blue\">Then</span> we watched a film.<br><br><span class=\"c-blue\">finally</span> &mdash; <span class=\"c-blue\">Finally</span>, we went home.",badge:"Sequence"},
+    {type:"card",img:"https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&w=800",title:"Examples: for example, such as",body:"Use these to give examples:<br><br><span class=\"c-violet\">for example</span> &mdash; Many fruits are sweet. <span class=\"c-violet\">For example</span>, mangoes and grapes.<br><br><span class=\"c-violet\">such as</span> &mdash; I enjoy sports <span class=\"c-violet\">such as</span> tennis.",badge:"Examples"},
+    {type:"speaking",img:"https://images.pexels.com/photos/5676744/pexels-photo-5676744.jpeg?auto=compress&w=800",title:"Speaking Practice: At the Cafe",questions:["What do you usually have for breakfast? Tell us step by step.","Describe a time your routine went wrong. What happened?"],answers:["For breakfast, I usually have toast and coffee. <strong>First</strong>, I wake up and make coffee. <strong>Then</strong> I have a shower, <strong>and afterwards</strong> I sit down to eat. I <strong>also</strong> grab a piece of fruit.","Last week everything went wrong. <strong>First</strong>, my alarm didn't go off, <strong>so</strong> I woke up late. <strong>Then</strong> I couldn't find my keys. <strong>Finally</strong>, I arrived at work 30 minutes late."]},
+    {type:"card",img:"https://images.pexels.com/photos/3771691/pexels-photo-3771691.jpeg?auto=compress&w=800",title:"Summary & Practice",body:"Key patterns:<br><br>&#8226; <strong>and / also / too</strong> = adding<br>&#8226; <strong>but / however / although</strong> = contrasting<br>&#8226; <strong>because / so / therefore</strong> = cause &amp; effect<br>&#8226; <strong>first / then / finally</strong> = sequencing<br><br>Practice: Describe your morning routine using at least 4 linking words.",badge:"Summary"},
+    {type:"cover",img:"https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&w=1280",title:"Well Done!",desc:"You completed the B1 Linking Words deck. Keep practising these patterns!",badge:"Complete"}
+  ],
+  current:0,
+  init:function(){this.render();this.bind();this.applyTheme(localStorage.getItem('eloquent-theme')||'eloquent');document.getElementById('loading').classList.add('hidden')},
+  render:function(){
+    var app=document.getElementById('app'),html='';
+    this.data.forEach(function(s,i){
+      if(s.type==='cover'){
+        html+='<section class="slide'+(i===0?' active':'')+'" data-i="'+i+'">';
+        html+='<div class="cover glow-on-hover"><img src="'+s.img+'"><div class="cover-overlay"><div class="badges"><span class="badge badge-accent">'+s.badge+'</span></div>';
+        html+='<h1 class="glow">'+s.title+'</h1><p>'+s.desc+'</p>';
+        if(i===0)html+='<button class="btn btn-primary" onclick="S.goTo(1)">Start Deck &#10148;</button>';
+        html+='</div></div></section>';
+      } else if(s.type==='card'){
+        html+='<section class="slide'+(i===0?' active':'')+'" data-i="'+i+'">';
+        html+='<div class="card-img"><img class="card-img-img" src="'+s.img+'"><div class="card-img-body">';
+        if(s.badge)html+='<div class="badges" style="margin-bottom:10px"><span class="badge badge-accent">'+s.badge+'</span></div>';
+        html+='<h2>'+s.title+'</h2><p>'+s.body+'</p></div></div></section>';
+      } else if(s.type==='speaking'){
+        html+='<section class="slide'+(i===0?' active':'')+'" data-i="'+i+'">';
+        html+='<div class="card-img"><img class="card-img-img" src="'+s.img+'"><div class="card-img-body"><h2>'+s.title+'</h2>';
+        s.questions.forEach(function(q,j){
+          html+='<div class="question">'+q+'</div>';
+          html+='<button class="reveal-btn" onclick="S.toggleAnswer(this)">Show model answer</button>';
+          html+='<div class="answer">'+s.answers[j]+'</div>';
+        });
+        html+='</div></div></section>';
+      }
+    });
+    app.innerHTML=html;this.updateUI();
+  },
+  goTo:function(n){if(n<0||n>=this.data.length)return;var s=document.querySelectorAll('.slide');s[this.current].classList.remove('active');this.current=n;s[this.current].classList.add('active');this.updateUI();window.scrollTo({top:0,behavior:'smooth'})},
+  next:function(){this.goTo(this.current+1)},
+  prev:function(){this.goTo(this.current-1)},
+  updateUI:function(){document.getElementById('counter').textContent=(this.current+1)+' / '+this.data.length;document.getElementById('progressFill').style.width=((this.current+1)/this.data.length*100)+'%';document.getElementById('prevBtn').disabled=this.current===0;document.getElementById('nextBtn').disabled=this.current===this.data.length-1},
+  toggleAnswer:function(btn){var a=btn.nextElementSibling;a.classList.toggle('open');btn.textContent=a.classList.contains('open')?'Hide answer':'Show model answer'},
+  bind:function(){
+  var self=this;
+  document.getElementById('nextBtn').onclick=function(){self.next()};
+  document.getElementById('prevBtn').onclick=function(){self.prev()};
+  document.getElementById('themeCycleBtn').addEventListener('click',function(){
+    var saved=localStorage.getItem('eloquent-theme')||'eloquent';
+    var idx=THEME_ORDER.indexOf(saved);
+    self.applyTheme(THEME_ORDER[(idx+1)%THEME_ORDER.length])
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();self.next()}
+    if(e.key==='ArrowLeft'){e.preventDefault();self.prev()}
+  })
+},
+  applyTheme:function(name){var t=THEMES[name];if(!t)return;var r=document.documentElement;r.style.setProperty('--cs-accent',t.accent);r.style.setProperty('--cs-bg',t.bg);r.style.setProperty('--cs-text',t.text);r.style.setProperty('--cs-card',t.card);r.style.setProperty('--cs-border',t.border);r.style.setProperty('--cs-text-muted',t.text+'99');r.style.setProperty('--cs-accent-glow',t.accent+'33');r.style.setProperty('--cs-accent-dim',t.accent+'18');document.getElementById('themeDot').style.background=t.accent;this.setSBG();try{localStorage.setItem('eloquent-theme',name)}catch(e){}},
+  setSBG:function(){var e=document.getElementById('bg');var t=localStorage.getItem('eloquent-theme')||'eloquent';if(e&&TEX_MAP[t]){e.style.backgroundImage='url('+TEX_MAP[t]+')'}}
+};
+var THEME_ORDER=['eloquent','wte','midnight','sunset','forest','light','sand','yellow','lavender','light-blue','lime-green'];
+var THEMES={eloquent:{accent:'#22d3ee',bg:'#0a0e1a',text:'#e0f2fe',card:'#111827',border:'#1e3a5f'},wte:{accent:'#a3e635',bg:'#1c1c1c',text:'#e8e8f0',card:'#232323',border:'#3a3a3a'},midnight:{accent:'#818cf8',bg:'#0f0f23',text:'#c7d2fe',card:'#1a1a3e',border:'#2e2e5e'},sunset:{accent:'#fb923c',bg:'#1a0f0a',text:'#fed7aa',card:'#2d1a10',border:'#4a2a1a'},forest:{accent:'#4ade80',bg:'#0a1a0f',text:'#bbf7d0',card:'#162418',border:'#2a4a2a'},light:{accent:'#2563eb',bg:'#f0f7ff',text:'#1e293b',card:'#e8f4fd',border:'#c2d9f0'},sand:{accent:'#d4a574',bg:'#1a1410',text:'#f5e6d3',card:'#2a2018',border:'#4a3828'},yellow:{accent:'#fbbf24',bg:'#1a1800',text:'#fef3c7',card:'#2a2408',border:'#4a4010'},lavender:{accent:'#c4b5fd',bg:'#1a0f2e',text:'#e0d4ff',card:'#2a1a4e',border:'#4c2a8e'},'light-blue':{accent:'#7dd3fc',bg:'#0a1628',text:'#dbeafe',card:'#162040',border:'#2a3858'},'lime-green':{accent:'#a3e635',bg:'#0a1a08',text:'#d9f99d',card:'#162410',border:'#2a4a18'}};
+var TEX_MAP={eloquent:'textures/eloquent.jpg',wte:'textures/wte.jpg',midnight:'textures/midnight.jpg',sunset:'textures/sunset.jpg',forest:'textures/forest.jpg',light:'textures/light.jpg',sand:'textures/sand.jpg',yellow:'textures/yellow.jpg',lavender:'textures/lavender.jpg','light-blue':'textures/light-blue.jpg','lime-green':'textures/lime-green.jpg'};
+setTimeout(function(){S.init()},300);
+setTimeout(function(){var l=document.getElementById('loading');if(l)l.style.display='none'},3000);
+</script>
+<style>
+.c-green{color:#4ade80}.c-orange{color:#fb923c}.c-red{color:#f87171}.c-blue{color:#60a5fa}.c-violet{color:#c084fc}
+</style>
+</body>
+</html>
